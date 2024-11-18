@@ -1,0 +1,43 @@
+/*-- scss:rules --*/
+.caption, figcaption {
+    text-align: center;
+}
+
+.green {
+    color: #3be57f!important;
+}
+
+.red {
+    color: rgb(226, 19, 19)!important; 
+}
+.subtitle {
+    font-style: italic;
+}
+.title .pref {
+    display: inline-block;
+    position: absolute;
+    transform: translate(-10%, -55%);
+    font-style: italic;
+    color: #3be57f;
+    font-size: 0.6em;
+    font-family: cursive;
+}
+#refs {
+    font-size: 0.9em!important;
+}
+
+input {
+    background-color: black!important;
+    border: none!important;
+}
+
+.panel-sidebar {
+    background-color: inherit!important;
+}
+.btn {
+    background-color: black!important;
+}
+
+.theorem {
+    border: 1 px solid white!important;
+}

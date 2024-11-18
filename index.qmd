@@ -1,0 +1,398 @@
+---
+title: "<span class='pref'>Lowering Bounding</span>The Gromov--Hausdorff Distance on Graphs"
+title-slide-attributes: 
+  data-background-image: "drawing.png"
+  data-background-opacity: "0.3"
+logo: logo.png
+subtitle: "Henry Adams, Nicolò Zava, Žiga Virk, Fedor Manin"
+author: "<span class='green'><b>Sushovan Majhi</b></span><br><i>George Washington University, Washington D.C.</i>"
+fig-cap-location: bottom
+
+format: 
+    revealjs:
+        theme: dark
+        slide-number: true
+        self-contained: true
+        incremental: true
+        css: style.css
+        navigation-mode: vertical
+bibliography: references.bib
+editor: 
+  render-on-save: true
+---
+
+# Today's Agenda
+
+- Hausdorff Distance
+- Gromov--Hausdorff Distance
+- Hasudorff vs Gromov--Hausdorff
+- The curious case of the circle
+- Lower bounds
+  - Riemannian manifolds
+  - metric graphs
+- Future work
+
+# The Hausdorff Distance
+
+:::{#def-dh}
+## Directed Hausdorff Distance
+
+For two subsets compact $X,Y\subset\mathbb R^n$, their Hausdorff distance
+is
+$$
+\vec{d}_H(X,Y)=\min\bigg\{r\geq0\mid X\subset \bigcup_{y\in Y} B(y,r)\bigg\}.
+$$
+
+:::
+
+. . . 
+
+:::{#def-h}
+## Hausdorff Distance
+$$
+d_H(X,Y)=\max\bigg\{\vec{d}_H(X,Y),\vec{d}_H(Y,X)\bigg\}.
+$$
+
+
+:::
+
+## A Little Demo {.smaller}
+
+```{ojs}
+{
+  const height = "400px";
+  const container = d3.create("div").style("position", "relative");
+  let svg = container
+    .append("svg")
+    .attr("class", "canvas")
+    .style("width", "90%")
+    .style("border", "1px solid white")
+    .style("height", height);
+
+  drawBalls(svg);
+
+  svg.on("click", (e) => {
+    const coord = d3.pointer(e);
+    isA ? A.push(coord) : B.push(coord);
+    drawBalls(svg);
+  });
+  return container.node();
+}
+```
+
+
+```{ojs}
+//| panel: sidebar
+viewof scaleB = Inputs.range([0, 300], {
+  step: 1,
+  value: 0,
+  label: tex`r`
+});
+viewof scaleA = Inputs.range([0, 300], {
+  step: 1,
+  value: 0,
+  label: tex`r`
+});
+viewof isA = Inputs.toggle({ label: tex`X\text{ or }Y`, value: true });
+viewof btn = Inputs.button("clear", {
+  value: null,
+  reduce: () => {
+    A.length = 0;
+    B.length = 0;
+    viewof scaleA.value = 0;
+    viewof scaleB.value = 0;
+    viewof scaleA.dispatchEvent(new CustomEvent("input"));
+    viewof scaleB.dispatchEvent(new CustomEvent("input"));
+  }
+});
+```
+
+```{ojs}
+A = [];
+B = [];
+drawBalls = function (svg) {
+  svg
+    .selectAll(".A-ball")
+    .data(A)
+    .join("circle")
+    .attr("class", "A-ball")
+    .attr("cx", (d) => d[0])
+    .attr("cy", (d) => d[1])
+    .attr("r", scaleA)
+    .attr("fill", "green")
+    .attr("stroke", "none")
+    .attr("opacity", "0.4");
+  svg
+    .selectAll(".B-ball")
+    .data(B)
+    .join("circle")
+    .attr("class", "B-ball")
+    .attr("cx", (d) => d[0])
+    .attr("cy", (d) => d[1])
+    .attr("r", scaleB)
+    .attr("fill", "red")
+    .attr("stroke", "none")
+    .attr("opacity", "0.4");
+  svg
+    .selectAll(".A-vertex")
+    .data(A)
+    .join("circle")
+    .attr("class", "A-vertex")
+    .attr("cx", (d) => d[0])
+    .attr("cy", (d) => d[1])
+    .attr("r", "5px")
+    .attr("fill", "green")
+    .on("mouseover", function () {
+      d3.select(this).attr("fill", "orange").attr("r", "10px");
+    })
+    .on("mouseout", function () {
+      d3.select(this).attr("fill", "green").attr("r", "5px");
+    });
+  svg
+    .selectAll(".B-vertex")
+    .data(B)
+    .join("circle")
+    .attr("class", "B-vertex")
+    .attr("cx", (d) => d[0])
+    .attr("cy", (d) => d[1])
+    .attr("r", "5px")
+    .attr("fill", "red")
+    .on("mouseover", function () {
+      d3.select(this).attr("fill", "orange").attr("r", "10px");
+    })
+    .on("mouseout", function () {
+      d3.select(this).attr("fill", "red").attr("r", "5px");
+    });
+
+  return svg;
+}
+import { slider } from "@jashkenas/inputs"
+```
+
+```{ojs}
+tex`\vec{d}_H(X,Y)=${scaleB}`;
+tex`d_H(X,Y)=${scaleA}`;
+tex`d_H(X,Y)=\text{max\{ }${scaleA}, ${scaleB}\text{ \}}=${Math.max(scaleA, scaleB)}`;
+```
+
+## Why Only Euclidean Subsets?
+
+:::{#def-h1}
+## Hausdorff Distance 
+Let $(Z,d)$ be a metric space and $X, Y\subset Z$ compact subsets.
+$$
+\vec{d}^Z_H(X,Y)=\min\{r\geq0\mid X\subset \cup_{y\in Y} B(y,r)\}.
+$$
+
+$$
+d^Z_H(X,Y)=\max\bigg\{\vec{d}^Z_H(X,Y),\vec{d}^Z_H(Y,X)\bigg\}.
+$$
+
+:::
+
+## The Circle
+
+![$Z=S^1$ is the circle with circumference $2\pi$](circle.png){width="300"}
+
+$$
+d_H(X,S^1)=\frac{\pi}{4}.
+$$
+
+# The Gromov--Hausdorff Distance
+
+What if the subsets $X,Y$ have no common embeddding?
+  
+. . .
+
+![Isometric embedding](gh.png){width="350"}
+
+. . . 
+
+$$
+d_{GH}(X,Y)=\inf d^Z_H(f(X),g(Y))
+$$
+
+## Some Properties and Results {.smaller}
+
+- $d_{GH}(X,Y)=0$ if and only if $X$, $Y$ are 
+<span style="green">isometric</span>
+
+- $$\tfrac{1}{2}|diam(X)-diam(Y)|\leq d_{GH}(X,Y)\leq \tfrac{1}{2}\max\big\{diam(X), diam(Y)\big\}$$
+
+- When $X, Y$ are finite metric spaces
+    - Computationally feasible (distortion definition)
+    - Minimization problem with *exponential* search space
+
+- If $X,Y$ metric trees, then $NP$-hard (A. Aggarawal et al.)
+- If $X,Y\subset\mathbb{R}^1$, then $\frac{5}{4}$-approximable (Majhi et al.)
+
+# Hausdorff vs Gromov--Hausdorff
+
+
+- Let $(Z,d)$ be a metric space and $X\subset Z$
+    - $d_H(X,Z)$ is well-defined
+- $(X,d)$ is also a metric space
+    - $d_{GH}(X,Z)$ can be defined
+
+. . . 
+
+> How the two distances $d_{GH}(X,Z)$ and $d^Z_H(X,Z)$ compare?
+
+- $d_{GH}(X,Z)\color{green}{\leq} d_H(X,Z)$
+
+- $d_{GH}(X,Z) \color{red}{=} d_H(X,Z)$?
+  
+## Comparison on the Circle {.smaller}
+
+![](circle-1.png){fig-align="center"}
+
+$$
+d_H(X,S^1)=\frac{\pi}{2}
+$$
+
+$$
+\frac{1}{2}\pi\leq d_{GH}(X,S^1)\leq \frac{1}{2}\pi
+\implies d_{GH}(X,S^1)=\frac{\pi}{2}
+$$
+
+
+## Comparison on the Circle {.smaller}
+
+![](circle-2.png){fig-align="center"}
+
+$$
+d_H(X,S^1)=\frac{\pi}{4}
+$$
+
+$$
+\frac{1}{2}0\leq d_{GH}(X,S^1)\leq \frac{1}{2}\pi
+\implies ?
+$$
+
+. . . 
+
+> $d_{GH}(X,S^1)=d_H(X,S^1)$
+
+## Comparison on the Circle
+
+![](circle-4.png){fig-align="center"}
+
+$$
+\frac{\pi}{3}=d_{GH}(X,S^1)<d_{H}(X,S^1)=\frac{\pi}{3}+\varepsilon.
+$$
+
+
+## Optimal Density for the Circle 
+
+:::{#thm-}
+
+## 2023
+
+For $X\subset S^1$ with $d_H(X,S^1)<\frac{\pi}{6}$, then 
+$d_{GH}(X,S^1)=d_H(X,S^1)$.
+
+:::
+
+- Proof is topological
+- Is $\frac{\pi}{6}$ optimal?
+
+. . .
+
+:::{#thm-}
+## 2024
+
+For $X\subset S^1$ with $d_H(X,S^1)<\frac{\pi}{3}$, then 
+$d_{GH}(X,S^1)=d_H(X,S^1)$.
+
+:::
+
+- Proof is purely geometric
+
+## Another Perspective
+
+- $d_{GH}(X,S^1)\geq\min\big\{d_H(X, S^1),\frac{\pi}{3}\big\}$.
+  
+. . .
+
+:::{#cor-}
+
+## Two Subsets 
+For $X,Y\subset S^1$ with $d_H(Y,S^1)\leq\varepsilon$, then
+$$d_{GH}(X,Y)\geq\min\big\{d_H(X, Y)-2\varepsilon,\tfrac{\pi}{3}-\varepsilon\big\}.$$
+
+:::
+
+- $O(n^2)$ lower-bound for $\max{|X|, |Y|}=n$.
+
+# Non-Trivial Lower Bounds
+- Intuition: when a sample becomes dense enough, it starts to capture the geometry of the space.
+
+
+
+- Generally: $d_{GH}(X,Z)\geq\min\big\{\color{red}{C}\cdot d_H(X, Z), \color{red}{D}\big\}$?
+    - Cirlce: $C=1$ and $D=\frac{\pi}{3}$.
+  
+. . . 
+
+:::{#thm-no}
+
+## Bad News
+
+For any $C>0$, there exists a compact metric space $Z$ 
+and a subset $X\subseteq Z$ with $d_{GH}(X,Z) < C \cdot d_{H}(X,Z).$
+
+:::
+
+## Good News
+:::{#thm-}
+## Closed Riemannian Manifolds
+
+For $X\subset M$, we have
+$$
+d_{GH}(X,M)\geq\min\bigg\{\color{green}{\frac{1}{2}}d_H(X, S^1),\color{green}{\frac{\rho}{6}}\bigg\}.
+$$
+
+:::
+
+- $\rho$ is the convexity radius of $M$
+- $C=\frac{1}{2}$ can be improved using Jung's theorem
+
+# Metric Trees and Graphs
+
+:::{#thm-tree}
+## Trees
+Let $T$ be a compact tree with finite edges.
+For any $X\subset T$ so that $d_H(T,X)<\vec{d}_H(\delta T, X)$, we have
+$$
+d_{GH}(X,T)=d_H(X, T).
+$$
+
+:::
+
+. . . 
+
+:::{#thm-graph}
+## Graphs
+Let $G$ be a compact tree with finite edges.
+For any $X\subset G$ so that $d_H(G,X)<\vec{d}_H(\delta G, X)$, we have
+$$
+d_{GH}(X,G)\geq\min\bigg\{{d_H(X, S^1),\tfrac{e(G)}{12}}\bigg\}.
+$$
+
+:::
+
+- $e(G)$ denotes the length of the shortest edge.
+
+# Questions
+
+- For metric graphs, is the density constant $\frac{e(G)}{12}$ optimal?
+    - We conjecture that $\frac{e(G)}{8}$ should suffice.
+
+- What about Riemannian manifolds with bounday?
+
+- Are there classes of metric spaces---like the circle, metric graphs---so that $C=1$?
+
+. . . 
+
+
+<span class="green">Thank you</span>
