@@ -4,8 +4,8 @@ title-slide-attributes:
   data-background-image: "drawing.png"
   data-background-opacity: "0.3"
 logo: logo.png
-subtitle: "Henry Adams, Nicolò Zava, Žiga Virk, Fedor Manin"
-author: "<span class='green'><b>Sushovan Majhi</b></span><br><i>George Washington University, Washington D.C.</i>"
+subtitle: "Tulane University, Fall 2024"
+author: "<green><b>Sushovan Majhi</b></green><br><i>George Washington University, Washington D.C.</i>"
 fig-cap-location: bottom
 
 format: 
@@ -32,31 +32,37 @@ editor:
   - metric graphs
 - Future work
 
-# The Hausdorff Distance
+# The <green>Hausdorff</green> Distance {background-image="drawing.png" background-opacity="0.3"}
 
+## {.smaller}
 :::{#def-dh}
 ## Directed Hausdorff Distance
 
-For two subsets compact $X,Y\subset\mathbb R^n$, their Hausdorff distance
+For two subsets compact $X,Y\subset\mathbb R^n$, their <red>directed</red> Hausdorff distance
 is
 $$
-\vec{d}_H(X,Y)=\min\bigg\{r\geq0\mid X\subset \bigcup_{y\in Y} B(y,r)\bigg\}.
+\vec{d}_H(X,Y)=\inf\big\{r\geq0\mid X\subset \bigcup_{y\in Y} B(y,r)\big\}.
 $$
 
 :::
 
 . . . 
 
+> All metric properties but <red>symmetry</red>.
+
+. . . 
+
 :::{#def-h}
-## Hausdorff Distance
-$$
-d_H(X,Y)=\max\bigg\{\vec{d}_H(X,Y),\vec{d}_H(Y,X)\bigg\}.
-$$
+## Hausdorff Distance 
+\begin{aligned}
+d_H(X,Y) &=\max\big\{\vec{d}_H(X,Y),\vec{d}_H(Y,X)\big\} \\
+&=\sup\big\{r\geq0 \mid X\subset \bigcup_{y\in Y} B(y,r)\text{ and }Y\subset \bigcup_{x\in X} B(x,r)\big\}.
+\end{aligned}
 
 
 :::
 
-## A Little Demo {.smaller}
+## {.smaller}
 
 ```{ojs}
 {
@@ -121,7 +127,7 @@ drawBalls = function (svg) {
     .attr("r", scaleA)
     .attr("fill", "green")
     .attr("stroke", "none")
-    .attr("opacity", "0.4");
+    .attr("opacity", "0.1");
   svg
     .selectAll(".B-ball")
     .data(B)
@@ -132,7 +138,7 @@ drawBalls = function (svg) {
     .attr("r", scaleB)
     .attr("fill", "red")
     .attr("stroke", "none")
-    .attr("opacity", "0.4");
+    .attr("opacity", "0.1");
   svg
     .selectAll(".A-vertex")
     .data(A)
@@ -175,22 +181,21 @@ tex`d_H(X,Y)=${scaleA}`;
 tex`d_H(X,Y)=\text{max\{ }${scaleA}, ${scaleB}\text{ \}}=${Math.max(scaleA, scaleB)}`;
 ```
 
-## Why Only Euclidean Subsets?
+
+## Why Only Euclidean Subsets? {.smaller}
 
 :::{#def-h1}
 ## Hausdorff Distance 
 Let $(Z,d)$ be a metric space and $X, Y\subset Z$ compact subsets.
 $$
-\vec{d}^Z_H(X,Y)=\min\{r\geq0\mid X\subset \cup_{y\in Y} B(y,r)\}.
-$$
-
-$$
-d^Z_H(X,Y)=\max\bigg\{\vec{d}^Z_H(X,Y),\vec{d}^Z_H(Y,X)\bigg\}.
+d^Z_H(X,Y)=\sup\big\{r\geq0 \mid X\subset \bigcup_{y\in Y} B(y,r)\text{ and }Y\subset \bigcup_{x\in X} B(x,r)\big\}.
 $$
 
 :::
 
-## The Circle
+. . . 
+
+> $d_H(X, Y)=0$ if and only if $X=Y$.
 
 ![$Z=S^1$ is the circle with circumference $2\pi$](circle.png){width="300"}
 
@@ -215,7 +220,7 @@ $$
 ## Some Properties and Results {.smaller}
 
 - $d_{GH}(X,Y)=0$ if and only if $X$, $Y$ are 
-<span style="green">isometric</span>
+<green>isometric</green>
 
 - $$\tfrac{1}{2}|diam(X)-diam(Y)|\leq d_{GH}(X,Y)\leq \tfrac{1}{2}\max\big\{diam(X), diam(Y)\big\}$$
 
@@ -395,4 +400,4 @@ $$
 . . . 
 
 
-<span class="green">Thank you</span>
+<green>Thank you</green>
