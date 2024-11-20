@@ -7,7 +7,7 @@ logo: logo.png
 subtitle: "Tulane University, Fall 2024"
 author: "<green><b>Sushovan Majhi</b></green><br><i>George Washington University, Washington D.C.</i>"
 fig-cap-location: bottom
-html-math-method: katex
+
 format: 
     revealjs:
         theme: dark
@@ -366,60 +366,81 @@ $$d_{GH}(X,Y)\geq\min\big\{d_H(X, Y)-2\varepsilon,\tfrac{\pi}{3}-\varepsilon\big
 ## <red>Bad News</red>
 
 For any $\color{green}{C}>0$, there exists a compact metric space $Z$ and a <red>dense</red> subset $X\subseteq Z$ with 
-$d_{GH}(X,Z) < \green{C}\ d_{H}(X,Z)$.
+$d_{GH}(X,Z) < \color{green}{C}\ d_{H}(X,Z)$.
 
 :::
 
-## Good News
+# <red>Closed</red> Riemannian <green>Manifolds</green>
+
+## One Subset
+
 :::{#thm-}
-## Closed Riemannian Manifolds
+## DCG 2023
 
 For $X\subset M$, we have
 $$
-d_{GH}(X,M)\geq\min\bigg\{\color{green}{\frac{1}{2}}d_H(X, S^1),\color{green}{\frac{\rho}{6}}\bigg\}.
+d_{GH}(X,M)\geq\min\big\{\color{green}{\tfrac{1}{2}}d_H(X, M),\color{red}{\tfrac{\rho(M)}{6}}\big\}.
 $$
 
 :::
 
-- $\rho$ is the convexity radius of $M$
-- $C=\frac{1}{2}$ can be improved using Jung's theorem
+- $\color{red}{\rho(M)}$ is the convexity radius of $M$
+- The triangle inequality gives us a two subset version
+- $\color{green}{C}=\frac{1}{2}$ can be improved using <green>Jung's Theorem</green>
 
-# Metric Trees and Graphs
+
+## Two Subsets
+
+:::{#thm-}
+## DCG 2023
+For $\color{cornflowerblue}{X},\color{orange}{Y}\subset M$ with $d(\color{orange}{Y},M)\leq\varepsilon$, we have
+$$
+d_{GH}(\color{cornflowerblue}{X},\color{orange}{Y})\geq\min\big\{\color{green}{\tfrac{1}{2}}d_H(\color{cornflowerblue}{X}, \color{orange}{Y})-\tfrac{3}{2}\varepsilon,\color{red}{\tfrac{\rho(M)}{6}-\tfrac{2}{3}\varepsilon}\big\}.
+$$
+
+:::
+
+![](torus-1.png){fig-align="center" width="300"}
+
+
+# <green>Trees</green> and <green>Graphs</green>
+
+## Metric Trees
 
 :::{#thm-tree}
-## Trees
-Let $T$ be a compact tree with finite edges.
-For any $X\subset T$ so that $d_H(T,X)<\vec{d}_H(\delta T, X)$, we have
+## 2024
+Let $T$ be a compact tree with <red>finitely edges</red>.
+For any $X\subset T$ so that <red>$d_H(T,X)<\vec{d}_H(\partial T, X)$</red>, we have
 $$
 d_{GH}(X,T)=d_H(X, T).
 $$
 
 :::
 
-. . . 
+## General Graphs
 
 :::{#thm-graph}
-## Graphs
-Let $G$ be a compact tree with finite edges.
+## 2024
+
+Let $G$ be a compact tree with <red>finite edges</red>.
 For any $X\subset G$ so that $d_H(G,X)<\vec{d}_H(\delta G, X)$, we have
 $$
-d_{GH}(X,G)\geq\min\bigg\{{d_H(X, S^1),\tfrac{e(G)}{12}}\bigg\}.
+d_{GH}(X,G)\geq\min\big\{\color{green}{1}\cdot d_H(X, G),\color{red}{\tfrac{e(G)}{12}}\big\}.
 $$
 
 :::
 
 - $e(G)$ denotes the length of the shortest edge.
 
-# Questions
+# <red> Questions</red>
 
-- For metric graphs, is the density constant $\frac{e(G)}{12}$ optimal?
+- For metric graphs, is the density constant $\frac{e(G)}{12}$ <red>optimal</red>?
     - We conjecture that $\frac{e(G)}{8}$ should suffice.
 
-- What about Riemannian manifolds with bounday?
+- What about Riemannian manifolds with <red>bounday</red>?
 
-- Are there classes of metric spaces---like the circle, metric graphs---so that $C=1$?
+- Are there classes of metric spaces---other than manifolds and metric graphs---so that $\color{green}{C}=1$, i.e. $d_{GH}(X,Z)=d_H(X,Z)$?
 
 . . . 
-
 
 <green>Thank you</green>
