@@ -1,5 +1,5 @@
 ---
-title: "<span class='pref'>Lowering Bounding</span>The Gromov--Hausdorff Distance"
+title: "<span class='pref'>Lower Bounding</span>The Gromov--Hausdorff Distance"
 title-slide-attributes: 
   data-background-image: "drawing.png"
   data-background-opacity: "0.3"
