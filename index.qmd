@@ -203,7 +203,9 @@ $$
 d_H(X,S^1)=\frac{\pi}{4}.
 $$
 
-# The Gromov--Hausdorff Distance
+# The <red>Gromov</red>--<green>Hausdorff</green> Distance {background-image="drawing.png" background-opacity="0.3"}
+
+## {.smaller}
 
 What if the subsets $X,Y$ have no common embeddding?
   
@@ -213,9 +215,17 @@ What if the subsets $X,Y$ have no common embeddding?
 
 . . . 
 
+::: {#def-gh}
+
+## The Gromov--Hausdorff Distance
+For two <red>abstract</red> metric spaces $(X,d_X)$ and $(Y,d_Y)$, define
 $$
 d_{GH}(X,Y)=\inf d^Z_H(f(X),g(Y))
 $$
+
+:::
+
+## An Example {.smaller}
 
 ## Some Properties and Results {.smaller}
 
@@ -228,92 +238,93 @@ $$
     - Computationally feasible (distortion definition)
     - Minimization problem with *exponential* search space
 
-- If $X,Y$ metric trees, then $NP$-hard (A. Aggarawal et al.)
+- If $X,Y$ metric trees, then $NP$-hard (Aggarwal et al.)
 - If $X,Y\subset\mathbb{R}^1$, then $\frac{5}{4}$-approximable (Majhi et al.)
 
-# Hausdorff vs Gromov--Hausdorff
+# Hausdorff <red>vs</red> Gromov--Hausdorff{background-image="drawing.png" background-opacity="0.3"}
 
+## 
 
-- Let $(Z,d)$ be a metric space and $X\subset Z$
-    - $d_H(X,Z)$ is well-defined
-- $(X,d)$ is also a metric space
-    - $d_{GH}(X,Z)$ can be defined
+1. Let $(Z,d)$ be a metric space and $X,Y\subset Z$
+    - <green>$d^Z_H(X,Y)$</green> is well-defined
+2. $(X,d)$ and $(Y,d)$ are also metric spaces
+    - <red>$d_{GH}(X,Y)$</red> can also be defined
 
 . . . 
 
-> How the two distances $d_{GH}(X,Z)$ and $d^Z_H(X,Z)$ compare?
+> How the two distances <green>$d^Z_H(X,Z)$</green> and <red>$d_{GH}(X,Y)$</red> compare?
 
-- $d_{GH}(X,Z)\color{green}{\leq} d_H(X,Z)$
+- $d_{GH}(X,Y)\color{green}{\leq} d_H(X,Y)$
+    - $Z$ is just one ambient of $X,Y$!
 
-- $d_{GH}(X,Z) \color{red}{=} d_H(X,Z)$?
+- $d_{GH}(X,Y) \color{red}{=} d_H(X,Y)$?
   
-## Comparison on the Circle {.smaller}
+## The Circle and A Subset
+
+::: {layout-ncol=2}
+- Let $Z$ be the circle with circumference $2\pi$
+- $X$ be a singleton subset, $Y=Z$
+- $\color{green}{d_H(X,S^1)}=\color{red}{d_{GH}(X,S^1)}=\frac{\pi}{2}$
+- $\frac{1}{2}\pi\leq d_{GH}(X,S^1)\leq \frac{1}{2}\pi
+\implies d_{GH}(X,S^1)=\frac{\pi}{2}$
+
 
 ![](circle-1.png){fig-align="center"}
-
-$$
-d_H(X,S^1)=\frac{\pi}{2}
-$$
-
-$$
-\frac{1}{2}\pi\leq d_{GH}(X,S^1)\leq \frac{1}{2}\pi
-\implies d_{GH}(X,S^1)=\frac{\pi}{2}
-$$
+:::
 
 
-## Comparison on the Circle {.smaller}
+
+## The Circle and A Subset
+
+::: {layout-ncol=2}
+- $\color{green}{d_H(X,S^1)}=\frac{\pi}{4}$
+- $\frac{1}{2}0\leq \color{red}{d_{GH}(X,S^1)}\leq \frac{1}{2}\pi
+\implies ?$
+- One can show that $d_{GH}(X,S^1)=d_H(X,S^1)$
+
 
 ![](circle-2.png){fig-align="center"}
+:::
 
-$$
-d_H(X,S^1)=\frac{\pi}{4}
-$$
 
-$$
-\frac{1}{2}0\leq d_{GH}(X,S^1)\leq \frac{1}{2}\pi
-\implies ?
-$$
-
-. . . 
-
-> $d_{GH}(X,S^1)=d_H(X,S^1)$
-
-## Comparison on the Circle
+## The Curious Case of the Circle
 
 ![](circle-4.png){fig-align="center"}
 
 $$
-\frac{\pi}{3}=d_{GH}(X,S^1)<d_{H}(X,S^1)=\frac{\pi}{3}+\varepsilon.
+\frac{\pi}{3}=\color{red}{d_{GH}(X,S^1)}<\color{green}{d_{H}(X,S^1)}=\frac{\pi}{3}+\varepsilon.
 $$
 
 
-## Optimal Density for the Circle 
+# The <red>Curious</red> Case of the <green>Circle</green>{background-image="drawing.png" background-opacity="0.3"}
+
+## Density is The Key
 
 :::{#thm-}
 
-## 2023
+## DCG 2023
 
-For $X\subset S^1$ with $d_H(X,S^1)<\frac{\pi}{6}$, then 
+For $X\subset S^1$ with $d_H(X,S^1)<\color{red}{\frac{\pi}{6}}$, then 
 $d_{GH}(X,S^1)=d_H(X,S^1)$.
 
 :::
 
-- Proof is topological
-- Is $\frac{\pi}{6}$ optimal?
+- Proof is <green>topological</green> (Vietoris--Rips complex, Nerve Lemma)
+- Is $\frac{\pi}{6}$ <red>optimal</red>?
 
 . . .
 
 :::{#thm-}
 ## 2024
 
-For $X\subset S^1$ with $d_H(X,S^1)<\frac{\pi}{3}$, then 
+For $X\subset S^1$ with $d_H(X,S^1)<\color{green}{\frac{\pi}{3}}$, then 
 $d_{GH}(X,S^1)=d_H(X,S^1)$.
 
 :::
 
 - Proof is purely geometric
 
-## Another Perspective
+## Another Perspective: Lower Bound
 
 - $d_{GH}(X,S^1)\geq\min\big\{d_H(X, S^1),\frac{\pi}{3}\big\}$.
   
